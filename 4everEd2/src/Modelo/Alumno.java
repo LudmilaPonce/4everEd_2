@@ -8,6 +8,8 @@ public class Alumno extends Persona {
 	private Calendar fechaPago;
 
 	private ArrayList<Calificaciones> calificaciones = new ArrayList<Calificaciones>();
+	
+	private boolean aprobado;
 
 	public boolean isPago() {
 		return pago;
@@ -17,13 +19,28 @@ public class Alumno extends Persona {
 		this.pago = pago;
 	}
 
-	public Alumno(long dni, String nombre, String apellido, char sexo, Calendar fechaNac, boolean pago) {
+	public Alumno(long dni, String nombre, String apellido, char sexo, Calendar fechaNac, boolean pago,boolean aprobado ) {
 		super(dni, nombre, apellido, sexo, fechaNac);
 		this.pago = pago;
+		this.aprobado= aprobado;
 	}
 
 	public Alumno() {
 
+	}
+	
+	
+
+	public boolean isAprobado() {
+		return aprobado;
+	}
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
+	}
+
+	public void setCalificaciones(ArrayList<Calificaciones> calificaciones) {
+		this.calificaciones = calificaciones;
 	}
 
 	public Calendar getFechaPago() {
@@ -33,7 +50,13 @@ public class Alumno extends Persona {
 	public void setFechaPago(Calendar fechaPago) {
 		this.fechaPago = fechaPago;
 	}
-	
-	
+
+	public ArrayList<Calificaciones> getCalificaciones() {
+		return calificaciones;
+	}
+
+	public void setCalificaciones(int calificacion, String instancia, Calendar fecha) {
+		this.calificaciones.add(new Calificaciones(calificacion, instancia, fecha));
+	}
 
 }

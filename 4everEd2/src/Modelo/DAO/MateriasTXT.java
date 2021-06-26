@@ -32,9 +32,18 @@ public class MateriasTXT implements Datos  {
 			int codigo = Integer.parseInt(linea.substring(0, 3).trim());			// 3 d�gitos
 			String nombre = linea.substring(3, 23).trim();							// 20 letras
 			int horas = Integer.parseInt(linea.substring(23, 26).trim());			// 3 digitos
-			if(linea.substring(26).length() != 0) {									// Agrego un comentario
-				String nombreTutor = linea.substring(26, 47).trim();				// 20 letras
-				String plataforma = linea.substring(47, 61).trim();					// 15 letras
+			String promocion = linea.substring(26, 35);
+
+			boolean promocionable = false;
+
+			if(promocion.trim().equalsIgnoreCase("True")) {
+				promocionable = true;
+			}
+			
+			
+			if(linea.substring(35).length() != 0) {									// Agrego un comentario
+				String nombreTutor = linea.substring(36, 57).trim();				// 20 letras
+				String plataforma = linea.substring(57, 71).trim();					// 15 letras
 						
 				long dni = MateriasProfesoresTXT.buscarDNI(codigo); //BUSCO EL DNI DEL PROFESOR CON EL CODIGO DE LA MATERIA
 		
@@ -44,14 +53,14 @@ public class MateriasTXT implements Datos  {
 					docente = ControlPersonas.getPersonas().get(posDocente);
 			
 				if(dni != 0) {		
-				Materia materia = new Distancia(codigo, nombre, horas,docente, nombreTutor, plataforma);			
+				Materia materia = new Distancia(codigo, nombre, horas,docente, promocionable, nombreTutor, plataforma);			
 				
 				materias.add(materia);
 				}		
 					
 				}
 			}else {
-				Materia materia = new Materia(codigo, nombre, horas, docente);
+				Materia materia = new Materia(codigo, nombre, horas, docente,  promocionable);
 				materias.add(materia);
 			}
 		}

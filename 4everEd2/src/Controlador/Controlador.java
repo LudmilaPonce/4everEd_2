@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Random;
 import Controlador.Controlador;
 import Modelo.Alumno;
+import Modelo.Calificaciones;
 import Modelo.Curso;
 import Modelo.Distancia;
 import Modelo.Docente;
@@ -27,7 +28,7 @@ public class Controlador {
 	static ControlPersonas controlPersonas;
 
 //	private static Curso cursos[] = new Curso[15];
-	private static ArrayList<Curso> cursos = new ArrayList<Curso>();
+	static ArrayList<Curso> cursos = new ArrayList<Curso>();
 	
 	public static Controlador conectar(vista vista) {
 		Controlador controlador;
@@ -39,6 +40,9 @@ public class Controlador {
 		return controlador;
 	}
 
+	public static ArrayList<Curso> getCurso() {
+		return cursos;
+	}
 	// Esta clase solamente puede instanciarse a travï¿½s del mï¿½todo estï¿½tico
 	// conectar()
 	private Controlador(vista vista) throws FileNotFoundException {
@@ -679,20 +683,85 @@ public class Controlador {
 	}
 	
 	public void calificaciones() {
-		/* 
-		 * considerando que la cursada del mismo se aprueba cuando el promedio de las 
-calificaciones (mínimo 2) obtenidas sea a partir de 6, junto con el 76% del presentismo. 
-
-Pero, para aprobar una materia es requisito la rendición de un examen final, donde el 
-alumno tiene 3 oportunidades para realizarlo. Ciertas materias, pueden ser promocionadas 
-si el promedio alcanza los 9 puntos. Esta información está incluida en el archivo 
-Materias.txt.
+		/*
+		 * considerando que la cursada del mismo se aprueba cuando el promedio de las
+		 * calificaciones (mínimo 2) obtenidas sea a partir de 6, junto con el 76% del
+		 * presentismo.
+		 * 
+		 * Pero, para aprobar una materia es requisito la rendición de un examen final,
+		 * donde el alumno tiene 3 oportunidades para realizarlo.
+		 * 
+		 * Ciertas materias, pueden ser promocionadas si el promedio alcanza los 9
+		 * puntos. Esta información está incluida en el archivo Materias.txt.
 		 */
-		
-		
-		
-		
-		
+
+		int totalCalificaciones = 0; // total de la suma de notas
+		int contadorNotas = 0; // cuantas notas sume
+
+		int promedio = 0; // suma/cantidad
+
+		boolean aprobado = false;
+
+		int totalClases = 0;
+		int totalPresentes = 0;
+		int porcentajeAsistencia = 0;
+
+		for (Curso c : cursos) { // recorro los cursos
+			totalClases = c.getClasesTotal();
+
+			for (Persona p : c.getAlumnosInscriptos()) { // recorro los alumnos del curso
+
+				for (Calificaciones cali : ((Alumno) p).getCalificaciones()) { // recorro las calificaciones de cada
+																				// alumno
+					totalCalificaciones = totalCalificaciones + cali.getCalificacion();
+					contadorNotas++;
+				}
+
+				promedio = totalCalificaciones / contadorNotas;
+
+				for (int j = 0; j < c.getClases().size(); j++) { // recorro las clases 
+					for (int a = 0; a < c.getClases().get(j).getAsistencias().size(); a++) { // recorro asistencias
+						// de cada clase
+						if (p.getDni() == c.getClases().get(j).getAsistencias().get(a).getAlumno().getDni()) { // busco
+																												// al
+																												// alumno
+							if (c.getClases().get(j).getAsistencias().get(a).getPresente() == true) {
+								totalPresentes++; // Si esta presente sumo 1
+							}
+							break;
+						}
+
+					}
+				}
+
+				porcentajeAsistencia = (totalPresentes * 100) / totalClases; // calculo el % de asistencias
+
+				int reprobado = 0; 
+
+				if ((totalCalificaciones > 1) && (promedio > 5) && (porcentajeAsistencia > 74)) {
+					if ((promedio > 8) && (c.getMateria().isPromocionable() == true)) {
+						aprobado = true;
+						((Alumno) p).setAprobado(aprobado);
+					} else {
+						for (Calificaciones cali : ((Alumno) p).getCalificaciones()) {
+
+							if (cali.getInstancia().equals("Final") && (cali.getCalificacion() > 6)) {
+								aprobado = true;
+								((Alumno) p).setAprobado(aprobado);
+							} else if (cali.getInstancia().equals("Final") && (cali.getCalificacion() < 6)
+									&& (reprobado < 3)) {
+								reprobado++;
+								aprobado= false;
+								((Alumno) p).setAprobado(aprobado);
+							}
+						}
+					}
+				}
+
+			}
+
+		}
+
 	}
 
 	public void guardarPresentismo() {

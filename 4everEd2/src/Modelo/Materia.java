@@ -5,8 +5,9 @@ public class Materia {
 	protected String nombre;
 	protected int horas;
 	protected Persona docente; //agrega
+	protected boolean promocionable;
 
-	public Materia(int codigo, String nombre, int horas, Persona docente) {
+	public Materia(int codigo, String nombre, int horas, Persona docente, boolean promocionable) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -14,7 +15,20 @@ public class Materia {
 		if (docente instanceof Docente) {//Verifico que me hayan mandado un docente.
 			this.docente = docente;
 		}
+		this.promocionable = promocionable;
+	}	
+
+	public boolean isPromocionable() {
+		return promocionable;
 	}
+
+	public void setPromocionable(boolean promocionable) {
+		this.promocionable = promocionable;
+	}
+
+
+
+
 
 	public Materia() {
 

@@ -4,8 +4,8 @@ public class Distancia extends Materia {
 	private String tutor;
 	private String plataforma;
 
-	public Distancia(int codigo, String nombre, int horas, Persona docente, String tutor, String plataforma) {
-		super(codigo, nombre, horas, docente);
+	public Distancia(int codigo, String nombre, int horas, Persona docente, boolean promocionable, String tutor, String plataforma) {
+		super(codigo, nombre, horas, docente, promocionable);
 		this.tutor = tutor;
 		this.plataforma = plataforma;
 	}

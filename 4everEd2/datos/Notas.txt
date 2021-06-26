@@ -1,4 +1,10 @@
-Las notas obtenidas por cada alumno, junto con la fecha del examen ya sea parcial o final, 
-es registrada en archivo Notas.txt donde los valores numéricos están encerrados entre 
-comillas dobles (ej. “4”).
-
+"10000001";"001";"14/05/2020";parcial;"2"
+"10000001";"001";"14/12/2020";parcial;"5"
+"10000001";"001";"14/12/2020";final;"2"
+"10000001";"001";"24/12/2020";final;"6"
+"10000002";"001";"20/19/2020";parcial;"8"
+"10000003";"001";"13/11/2020";parcial;"8"
+"10000004";"002";"19/10/2020";parcial;"8"
+"10000005";"002";"02/12/2020";final;"8"
+"10000006";"002";"11/02/2020";final;"8"
+"10000007";"002";"14/04/2020";parcial;"8"

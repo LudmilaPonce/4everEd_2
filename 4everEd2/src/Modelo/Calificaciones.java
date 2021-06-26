@@ -26,7 +26,16 @@ public class Calificaciones {
 	public void setFecha(Calendar fecha) {
 		this.fecha = fecha;
 	}
+	public Calificaciones(int calificacion, String instancia, Calendar fecha) {
+		super();
+		this.calificacion = calificacion;
+		this.instancia = instancia;
+		this.fecha = fecha;
+	}
 	
+	public Calificaciones() {
+		
+	}
 	
 	
 }

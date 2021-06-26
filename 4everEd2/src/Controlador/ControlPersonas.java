@@ -7,7 +7,7 @@ import Modelo.DAO.Modelo;
 
 public class ControlPersonas {
 	
-	private static ArrayList<Persona> personas;
+	static ArrayList<Persona> personas;
 	
 	public static int buscarAlumno(long dni, ArrayList<Persona> alumnos) {
 		int i = alumnos.size();
