@@ -1,0 +1,20 @@
+   1   113/06/2021                                 Apellido2 Alumno2 10000002false
+   1   113/06/2021                                 Apellido3 Alumno3 10000003false
+   1   113/06/2021                                 Apellido4 Alumno4 10000004false
+   1   113/06/2021                                 Apellido5 Alumno5 10000005false
+   1   113/06/2021                                 Apellido6 Alumno6 10000006false
+   1   113/06/2021                                 Apellido2 Alumno2 10000002 true
+   1   113/06/2021                                 Apellido3 Alumno3 10000003false
+   1   113/06/2021                                 Apellido4 Alumno4 10000004false
+   1   113/06/2021                                 Apellido5 Alumno5 10000005false
+   1   113/06/2021                                 Apellido6 Alumno6 10000006false
+   1   113/06/2021                                 Apellido2 Alumno2 10000002 true
+   1   113/06/2021                                 Apellido3 Alumno3 10000003false
+   1   113/06/2021                                 Apellido4 Alumno4 10000004 true
+   1   113/06/2021                                 Apellido5 Alumno5 10000005false
+   1   113/06/2021                                 Apellido6 Alumno6 10000006false
+   1   113/06/2021                                 Apellido2 Alumno2 10000002 true
+   1   113/06/2021                                 Apellido3 Alumno3 10000003 true
+   1   113/06/2021                                 Apellido4 Alumno4 10000004false
+   1   113/06/2021                                 Apellido5 Alumno5 10000005false
+   1   113/06/2021                                 Apellido6 Alumno6 10000006false

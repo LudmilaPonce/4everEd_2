@@ -1,0 +1,4 @@
+Las notas obtenidas por cada alumno, junto con la fecha del examen ya sea parcial o final, 
+es registrada en archivo Notas.txt donde los valores numéricos están encerrados entre 
+comillas dobles (ej. “4”).
+

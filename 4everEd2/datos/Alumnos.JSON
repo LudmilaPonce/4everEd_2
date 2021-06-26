@@ -1,0 +1,92 @@
+{"persona":[{
+  "dni": 10000012,
+  "nombre": "Alumno1",
+  "apellido": "Apellido1",
+  "sexo": "femenino",
+  "nacimiento": "15/10/1999",
+  "pago": "false",
+  "fechaPago": "16/02/2021"
+  },
+ {
+  "dni": 10000013,
+  "nombre": "Alumno2",
+  "apellido": "Apellido2",
+  "sexo": "femenino",
+  "nacimiento": "20/01/1995",
+  "pago": "true",
+  "fechaPago": "16/02/2021"
+  },
+  {
+   "dni": 10000014,
+   "nombre": "Alumno3",
+   "apellido": "Apellido3",
+   "sexo": "masculino",
+   "nacimiento": "20/01/1992",
+   "pago": "true",
+   "fechaPago": "16/02/2021"
+   },
+   {
+    "dni": 10000015,
+    "nombre": "Alumno4",
+    "apellido": "Apellido4",
+    "sexo": "femenino",
+    "nacimiento": "20/01/1990",
+    "pago": "true",
+    "fechaPago": "16/02/2021"
+    },
+   {
+    "dni": 10000016,
+    "nombre": "Alumno5",
+    "apellido": "Apellido5",
+    "sexo": "femenino",
+    "nacimiento": "22/09/1999",
+    "pago": "true",
+    "fechaPago": "11/02/2021"
+    },
+   {
+    "dni": 10000017,
+    "nombre": "Alumno6",
+    "apellido": "Apellido6",
+    "sexo": "femenino",
+    "nacimiento": "22/09/1999",
+    "pago": "true",
+    "fechaPago": "11/02/2021"
+    },
+   {
+    "dni": 10000018,
+    "nombre": "Alumno7",
+    "apellido": "Apellido7",
+    "sexo": "femenino",
+    "nacimiento": "22/09/1999",
+    "pago": "true",
+    "fechaPago": "11/02/2021"
+    },
+   {
+    "dni": 10000019,
+    "nombre": "Alumno8",
+    "apellido": "Apellido8",
+    "sexo": "femenino",
+    "nacimiento": "22/09/1999",
+    "pago": "true",
+    "fechaPago": "11/02/2021"
+    },
+   {
+    "dni": 10000020,
+    "nombre": "Alumno9",
+    "apellido": "Apellido9",
+    "sexo": "femenino",
+    "nacimiento": "22/09/1999",
+    "pago": "true",
+    "fechaPago": "11/02/2021"
+    },
+   {
+    "dni": 100000021,
+    "nombre": "Alumno10",
+    "apellido": "Apellido10",
+    "sexo": "masculino",
+    "nacimiento": "22/11/1993",
+    "pago": "true",
+    "fechaPago": "11/02/2021"
+    }
+ ]
+}

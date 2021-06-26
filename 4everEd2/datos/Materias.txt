@@ -1,0 +1,9 @@
+001Teleinformatica     045Juan Perez          Classroom      
+002Auditoria           035Susana Martinez     Classroom      
+003Matematica          040Juana Suarez        Classroom      
+004Algebra             035Sandra Sosa         Blackboard     
+009Algebra 2           040
+005Analisis Matematico 035Jimena Gimenez      Blackboard     
+006Seguridad           040Maria Paz           Blackboard     
+007Sistemas Numericos  045Sonia Gimenez       Blackboard     
+008Programacion        030Carlos Sosa         Classroom      
