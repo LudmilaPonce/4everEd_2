@@ -1,6 +1,6 @@
 package Modelo;
 
-public class Asistencia {
+public class Asistencia implements Comparable <Asistencia>  {
 
 		private Boolean presente;
 		private Persona alumno; // agregacion
@@ -25,6 +25,12 @@ public class Asistencia {
 		}
 		public void setAlumno(Persona alumno) {
 			this.alumno = alumno;
+		}
+
+		@Override
+		public int compareTo(Asistencia a) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 
 }

@@ -10,6 +10,17 @@ public class Alumno extends Persona {
 	private ArrayList<Calificaciones> calificaciones = new ArrayList<Calificaciones>();
 	
 	private boolean aprobado;
+	private double porcentajeAsistencia;
+	
+	
+
+	public double getPorcentajeAsistencia() {
+		return porcentajeAsistencia;
+	}
+
+	public void setPorcentajeAsistencia(double porcentajeAsistencia) {
+		this.porcentajeAsistencia = porcentajeAsistencia;
+	}
 
 	public boolean isPago() {
 		return pago;

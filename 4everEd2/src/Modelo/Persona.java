@@ -2,7 +2,7 @@ package Modelo;
 
 import java.util.Calendar;
 
-public class Persona {
+public class Persona implements Comparable <Persona> {
 	protected long dni;
 	protected String nombre;
 	protected String apellido;
@@ -65,4 +65,9 @@ public class Persona {
 		this.fechaNac = fechaNac;
 	}
 
+	@Override
+	public int compareTo(Persona p) {
+		int lastCmp = apellido.compareTo(p.apellido);
+		return (lastCmp != 0 ? lastCmp : nombre.compareTo(p.nombre));
+	}
 }

@@ -3,10 +3,14 @@ package Controlador;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Random;
 import Controlador.Controlador;
 import Modelo.Alumno;
+import Modelo.Asistencia;
+import Modelo.AsistenciaSortByDoc;
 import Modelo.Calificaciones;
+import Modelo.Clase;
 import Modelo.Curso;
 import Modelo.Distancia;
 import Modelo.Docente;
@@ -186,6 +190,7 @@ public class Controlador {
 		
 		
 	}
+
 	public void inscribirAlumnos() {
 
 		boolean existeCurso = false;
@@ -230,61 +235,139 @@ public class Controlador {
 			Calendar inicio = Curso.getFechaInicio();
 
 			Calendar dosDias = Calendar.getInstance();
-			
-			dosDias.set(inicio.get(Calendar.YEAR),inicio.get(Calendar.MONTH),inicio.get(Calendar.DATE));
+
+			dosDias.set(inicio.get(Calendar.YEAR), inicio.get(Calendar.MONTH), inicio.get(Calendar.DATE));
 			dosDias.add(Calendar.DATE, -2);
-			
+
 			int inscripcion = 0;
-			System.out.println("poscurso: "+posCurso);
+			System.out.println("poscurso: " + posCurso);
 			for (int i = 0; i < cursos.get(posCurso).getInscripciones().size(); i++) { // Recorro el curso al cual voy a
-				System.out.println("estoy en el for");																	// inscribir
-				if (cursos.get(posCurso).getInscripciones().get(i).getAlumno() == null) { // si la posicion es nula osea que esta vacia
+				// inscribir
 
-					cursos.get(posCurso).getInscripciones().get(i).setAlumno(controlPersonas.getPersonas().get(posicionAlumno));
+				boolean registrado = false;
 
-					vista.mostrarTexto("Abonar matricula?\n(S/N)");
-					boolean pago = Validador.leerSiNo();
+				for (Inscripcion insc : cursos.get(posCurso).getInscripciones()) {
+					if (insc.getAlumno().getDni() == dni || ((Alumno) insc.getAlumno()).isAprobado() == true) {
+						vista.mostrarTexto("Alumno ya registrado o materia ya aprobada");
+						registrado = true;
+					} else {
 
-					((Alumno) cursos.get(posCurso).getInscripciones().get(i).getAlumno()).setPago(pago);// SETEO SI ABONO LA
-																								// MATRICULA
+						if (cursos.get(posCurso).getInscripciones().get(i).getAlumno() == null) { // si la posicion es
+																									// nula osea que
+																									// esta vacia
 
-					Calendar fechaPago = null;
+							cursos.get(posCurso).getInscripciones().get(i)
+									.setAlumno(controlPersonas.getPersonas().get(posicionAlumno));
 
-					if (pago == true) {
-						fechaPago = Validador.leerFecha();
-						((Alumno) cursos.get(posCurso).getInscripciones().get(i).getAlumno()).setFechaPago(fechaPago);
-						System.out.println("Estoy dentro del if del pago.\nFecha de matricula: "+Validador.formatoFecha(fechaPago)+"\nFecha de inicio del curso: "+Validador.formatoFecha(cursos.get(posCurso).getFechaInicio()));
-						System.out.println("Fecha hace dos dias: "+Validador.formatoFecha(dosDias));
-						if (fechaPago.before(dosDias)) { // si la fecha de pago es anterior a la fecha de hace dos dias
-							cursos.get(posCurso).setInscripciones(fechaInscripcion, observacion, controlPersonas.getPersonas().get(posicionAlumno), i); // agrego
-																															// la
-																															// inscripcion
+							vista.mostrarTexto("Abonar matricula?\n(S/N)");
+							boolean pago = Validador.leerSiNo();
 
-							inscripcion = i; // me guardo la posicion de inscripcion para enviarla al txt
-							cursos.get(posCurso).getInscripciones().get(i).setAceptada(true); // Termine el proceso y acepto
-							System.out.println("Inscripcion Exitosa :-) ");
+							((Alumno) cursos.get(posCurso).getInscripciones().get(i).getAlumno()).setPago(pago);// SETEO
+																												// SI
+																												// ABONO
+																												// LA
+							// MATRICULA
+
+							Calendar fechaPago = null;
+
+							if (pago == true) {
+								fechaPago = Validador.leerFecha();
+								((Alumno) cursos.get(posCurso).getInscripciones().get(i).getAlumno())
+										.setFechaPago(fechaPago);
+								System.out.println("Estoy dentro del if del pago.\nFecha de matricula: "
+										+ Validador.formatoFecha(fechaPago) + "\nFecha de inicio del curso: "
+										+ Validador.formatoFecha(cursos.get(posCurso).getFechaInicio()));
+								System.out.println("Fecha hace dos dias: " + Validador.formatoFecha(dosDias));
+								if (fechaPago.before(dosDias)) { // si la fecha de pago es anterior a la fecha de hace
+																	// dos dias
+									cursos.get(posCurso).setInscripciones(fechaInscripcion, observacion,
+											controlPersonas.getPersonas().get(posicionAlumno), i); // agrego
+									// la
+									// inscripcion
+
+									inscripcion = i; // me guardo la posicion de inscripcion para enviarla al txt
+									cursos.get(posCurso).getInscripciones().get(i).setAceptada(true); // Termine el
+																										// proceso y
+																										// acepto
+									System.out.println("Inscripcion Exitosa :-) ");
+									break;
+								}
+							}
 							break;
 						}
 					}
-					break;
-				}
-			}
 
-			if (cursos.get(posCurso).getInscripciones().get(inscripcion).isAceptada() == true) {
-				try {
-					Modelo.crearRegistros(cursos.get(posCurso), inscripcion);// guardarlo en registros TXT, envio el curso
-																			// al cual inscribo
-					// y la posicion de inscripcion
-					// que hice
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
+					if (cursos.get(posCurso).getInscripciones().get(inscripcion).isAceptada() == true) {
+						try {
+							Modelo.crearRegistros(cursos.get(posCurso), inscripcion);// guardarlo en registros TXT,
+																						// envio el curso
+																						// al cual inscribo
+							// y la posicion de inscripcion
+							// que hice
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+					} else {
+						vista.mostrarTexto("NO fue aceptada su inscripcion");
+					}
 				}
-			} else {
-				vista.mostrarTexto("NO fue aceptada su inscripcion");
 			}
 		} else {
 			vista.mostrarTexto("No hay cursos o alumnos cargados en el sistema");
 		}
+	}
+	
+	public void Visualizaciones() {
+		/*
+		 * Agregar también en la aplicación mencionada, la visualización de: 
+- nombre y apellido de los alumnos que no hayan aprobado la cursada de ninguna materia 
+a distancia ordenado por apellido y nombre del alumno. 
+
+- nombre de la materia, nombre de los profesores y la cantidad de clases donde el tema 
+dictado coincida. 
+
+		 */
+		
+		for(Curso c: cursos) {
+			Collections.sort(c.getAlumnosInscriptos());
+			
+			boolean aprobo = false;					
+			
+			if(c.getMateria() instanceof Distancia) {
+				for(Persona insc : c.getAlumnosInscriptos()) {
+					if(insc instanceof Alumno) {
+						if(	((Alumno) insc).isAprobado() == true){
+							aprobo = true;
+						}
+					}
+					if(aprobo == false) {
+					vista.mostrarTexto(insc.getApellido()+ " - "+ insc.getNombre());
+					}
+				}
+			
+			}
+		}
+		
+		for(Curso c: cursos) {
+			int conTema= 0;
+			String tema= null;
+			for(Clase clase : c.getClases()) {
+				tema=clase.getTemas();
+				
+				for(Clase clase2 : c.getClases()) {
+					if(tema.equalsIgnoreCase(clase2.getTemas())) {
+					conTema++;
+				}
+				}		
+			}
+		vista.mostrarTexto("Profesor: " + c.getMateria().getDocente().getApellido() + c.getMateria().getDocente().getNombre());
+		vista.mostrarTexto("Materia: "+ c.getMateria().getNombre());
+		vista.mostrarTexto("Cantidad de temas repetidos "+ conTema);
+		}
+		
+		
+		
+		
 	}
 
 	public void ControlarAsistencia() {
@@ -683,17 +766,6 @@ public class Controlador {
 	}
 	
 	public void calificaciones() {
-		/*
-		 * considerando que la cursada del mismo se aprueba cuando el promedio de las
-		 * calificaciones (mínimo 2) obtenidas sea a partir de 6, junto con el 76% del
-		 * presentismo.
-		 * 
-		 * Pero, para aprobar una materia es requisito la rendición de un examen final,
-		 * donde el alumno tiene 3 oportunidades para realizarlo.
-		 * 
-		 * Ciertas materias, pueden ser promocionadas si el promedio alcanza los 9
-		 * puntos. Esta información está incluida en el archivo Materias.txt.
-		 */
 
 		int totalCalificaciones = 0; // total de la suma de notas
 		int contadorNotas = 0; // cuantas notas sume
@@ -768,22 +840,37 @@ public class Controlador {
 		// Para cada materia dictada, incluir el número de curso, año lectivo y el
 		// porcentaje total de asistencia en el archivo Presentismo.csv (separado por
 		// “;”).
+		
 		for (int i = 0; i < controlMaterias.getMaterias().size(); i++) {
 			for (int j = 0; j < cursos.size(); j++) {
 
 				int contadorPresente = 0;
+				int clase=0;
+				int IndiceAsistencia=0;
+				
 				
 				if (cursos.get(j).getMateria().getCodigo() == controlMaterias.getMaterias().get(i).getCodigo()) {
 
 					for (int p = 0; p < cursos.get(j).getClases().size(); p++) {
+						clase = p;
 						for (int a = 0; a < cursos.get(j).getClases().get(p).getAsistencias().size(); a++) {
+						IndiceAsistencia= a;
+						
 							if (cursos.get(j).getClases().get(p).getAsistencias().get(a).getPresente() == true) {
 								contadorPresente++;
+								
 							}
 
 						}
 						double asistencia = contadorPresente * 100 / cursos.get(j).getClasesTotal();
-
+						
+						
+			((Alumno) cursos.get(j).getClases().get(p).getAsistencias().get(IndiceAsistencia).getAlumno()).setPorcentajeAsistencia(asistencia);
+					
+			Collections.sort(cursos.get(j).getClases().get(p).getAsistencias(), new AsistenciaSortByDoc() );
+			
+			
+			
 						try {
 							Modelo.agregarPresentismo(cursos.get(j), asistencia);
 						} catch (FileNotFoundException e) {
